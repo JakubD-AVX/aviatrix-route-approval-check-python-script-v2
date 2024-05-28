@@ -38,7 +38,7 @@ During the script execution the following 4 files are created in **temp_files** 
 
 ## Requirements
 Please keep in mind that script only works for **Aviatrix Transit Gateways** that have "BGP Route Approval" feature enabled in **Connection-Mode**.
-The script uses .env file for keeping the information required to log in to the Aviatrix Controller and to send the email notifications.
+The script uses .env file for keeping the information required to log in to the Aviatrix Controller (you can use read-only User Account) and to send the email notifications.
 The following variables must be updated by you before executing the script.
 The content of .env file:
 
