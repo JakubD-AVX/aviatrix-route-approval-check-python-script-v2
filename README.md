@@ -66,6 +66,8 @@ $ python3 route_approval_check.py transit-90
 The *transit-90* is a name of my Transit Gateway.
 
 ## Output
+![image](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v2/assets/98452952/8c19c2e7-6ec0-44dd-bdf1-faf07c84fd52)
+
 Besides the files that are created by the script, the script also generates some outputs and sends notification e-mails.
 The script generates the outputs that show the following pieces of information:
 - name of the Aviatrix Transit Gateway that has been checked
