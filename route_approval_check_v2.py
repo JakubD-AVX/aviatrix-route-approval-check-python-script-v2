@@ -135,8 +135,8 @@ def send_email_list(gateway_name, connection_name_email, approved_list_mismatch,
     body2 = "\n\nThe following CIDRs are approved by Route Approval feature but not present in Golden List:\n" + approved_list_mismatch
   elif ra_cidrs_type == "approved_golden":
     message['Subject'] = "Aviatrix - Route Approval - Approved CIDRs Mismatch detected"
-    body1 = "Total number of pending CIDRs changed for gateway: " + gateway_name + " and connection: " + connection_name_email + ".\n\n"
-    body2 = "\n\nThe following CIDRs are are present in Golden List but not Approved by Route Approval feature:\n" + approved_list_mismatch
+    body1 = "Total number of approved CIDRs changed for gateway: " + gateway_name + " and connection: " + connection_name_email + ".\n\n"
+    body2 = "\n\nThe following CIDRs are present in Golden List but not Approved by Route Approval feature:\n" + approved_list_mismatch
   
   body = body1 + body2
   message.attach(MIMEText(body, 'plain'))
@@ -259,62 +259,62 @@ def check_total_approved(gateway_name, list_of_connections, count_number_of_conn
   return
 
 #--------------- Check Whether Total Number of Pending CIDRs changed ---------------#
-def check_total_pending(gateway_name, list_of_connections, count_number_of_connections):
-  # Check the current number of Pending CIDRs
-  for conn_name in range(count_number_of_connections):
-    # print("------------------------------------------------------------------------------------------------------------------------")
-    # print("Connection name: ", list_of_connections[conn_name])
-    # Define the file path
-    file_path = "temp_files/" + gateway_name + "_connection_" + list_of_connections[conn_name] + "_total_pending_cidr_date_" + formatted_current_date + ".csv"
-    # Open the CSV file and read the number of total pending CIDRs
-    # for Current Check
-    with open(file_path, 'r') as csvfile:
-      csvreader = csv.reader(csvfile)
-      for row in csvreader:
-        # Assuming the number is in the first cell of the first row
-        currentcheck_pending_number = row[0]
-        #print("The number of pending CIDRs in the currrent-check CSV file:", str(currentcheck_pending_number))
-        break  # Exit after reading the first row
+# def check_total_pending(gateway_name, list_of_connections, count_number_of_connections):
+#   # Check the current number of Pending CIDRs
+#   for conn_name in range(count_number_of_connections):
+#     # print("------------------------------------------------------------------------------------------------------------------------")
+#     # print("Connection name: ", list_of_connections[conn_name])
+#     # Define the file path
+#     file_path = "temp_files/" + gateway_name + "_connection_" + list_of_connections[conn_name] + "_total_pending_cidr_date_" + formatted_current_date + ".csv"
+#     # Open the CSV file and read the number of total pending CIDRs
+#     # for Current Check
+#     with open(file_path, 'r') as csvfile:
+#       csvreader = csv.reader(csvfile)
+#       for row in csvreader:
+#         # Assuming the number is in the first cell of the first row
+#         currentcheck_pending_number = row[0]
+#         #print("The number of pending CIDRs in the currrent-check CSV file:", str(currentcheck_pending_number))
+#         break  # Exit after reading the first row
 
-    # for Golden List
-    file_path = "golden_list/" + gateway_name + "_connection_" + list_of_connections[conn_name] + "_pending_cidr_list_golden_list.csv"
-    # Check whether the file for golden list exists
-    if os.path.exists(file_path):
-      # Open the CSV file and read the number of total pending CIDRs
-      with open(file_path, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        for row in csvreader:
-          # Assuming the number is in the first cell of the first row
-          #goldenfile_pending_number = row[0]
-          goldenfile_pending_number = sum(1 for row in csvreader)
-          #print("The number of pending CIDRs in the Golden List CSV file:", str(goldenfile_pending_number))
-          break  # Exit after reading the first row
-    else:
-      print("------------------------------------------------------------------------------------------------------------------------")
-      print("Golden List file " + file_path + " for pending CIDRs does not exist.")
-      break
+#     # for Golden List
+#     file_path = "golden_list/" + gateway_name + "_connection_" + list_of_connections[conn_name] + "_pending_cidr_list_golden_list.csv"
+#     # Check whether the file for golden list exists
+#     if os.path.exists(file_path):
+#       # Open the CSV file and read the number of total pending CIDRs
+#       with open(file_path, 'r') as csvfile:
+#         csvreader = csv.reader(csvfile)
+#         for row in csvreader:
+#           # Assuming the number is in the first cell of the first row
+#           #goldenfile_pending_number = row[0]
+#           goldenfile_pending_number = sum(1 for row in csvreader)
+#           #print("The number of pending CIDRs in the Golden List CSV file:", str(goldenfile_pending_number))
+#           break  # Exit after reading the first row
+#     else:
+#       print("------------------------------------------------------------------------------------------------------------------------")
+#       print("Golden List file " + file_path + " for pending CIDRs does not exist.")
+#       break
 
-    # Checking for each connection whether the total approved CIDR changed compared to golden list
-    goldenfile_pending_number = int(goldenfile_pending_number) 
-    currentcheck_pending_number = int(currentcheck_pending_number)
-    if os.path.exists(file_path):
-      if currentcheck_pending_number > goldenfile_pending_number:
-        print("------------------------------------------------------------------------------------------------------------------------")
-        print("Connection name: ", list_of_connections[conn_name])
-        print("The number of pending CIDRs in the currrent-check of Route Approval feature:", str(currentcheck_pending_number))
-        print("The number of pending CIDRs in the Golden List file:", str(goldenfile_pending_number))
-        print("Total pending CIDR number is greater than Golden-List count for connection: ", str(list_of_connections[conn_name]))
-        #send_email(gateway_name, list_of_connections[conn_name], goldenfile_pending_number, currentcheck_pending_number, "pending_ra")
-      elif currentcheck_pending_number < goldenfile_pending_number:
-        print("------------------------------------------------------------------------------------------------------------------------")
-        print("Connection name: ", list_of_connections[conn_name])
-        print("The number of pending CIDRs in the currrent-check of Route Approval feature:", str(currentcheck_pending_number))
-        print("The number of pending CIDRs in the Golden List file:", str(goldenfile_pending_number))
-        print("Total pending CIDR number is lower than Golden-List count for connection: ", str(list_of_connections[conn_name]))
-        #send_email(gateway_name, list_of_connections[conn_name], goldenfile_pending_number, currentcheck_pending_number, "pending_ra")
-      else:
-        #print("Total pending CIDR number has not changed for connection: ", list_of_connections[conn_name])
-        pass
+#     # Checking for each connection whether the total approved CIDR changed compared to golden list
+#     goldenfile_pending_number = int(goldenfile_pending_number) 
+#     currentcheck_pending_number = int(currentcheck_pending_number)
+#     if os.path.exists(file_path):
+#       if currentcheck_pending_number > goldenfile_pending_number:
+#         print("------------------------------------------------------------------------------------------------------------------------")
+#         print("Connection name: ", list_of_connections[conn_name])
+#         print("The number of pending CIDRs in the currrent-check of Route Approval feature:", str(currentcheck_pending_number))
+#         print("The number of pending CIDRs in the Golden List file:", str(goldenfile_pending_number))
+#         print("Total pending CIDR number is greater than Golden-List count for connection: ", str(list_of_connections[conn_name]))
+#         #send_email(gateway_name, list_of_connections[conn_name], goldenfile_pending_number, currentcheck_pending_number, "pending_ra")
+#       elif currentcheck_pending_number < goldenfile_pending_number:
+#         print("------------------------------------------------------------------------------------------------------------------------")
+#         print("Connection name: ", list_of_connections[conn_name])
+#         print("The number of pending CIDRs in the currrent-check of Route Approval feature:", str(currentcheck_pending_number))
+#         print("The number of pending CIDRs in the Golden List file:", str(goldenfile_pending_number))
+#         print("Total pending CIDR number is lower than Golden-List count for connection: ", str(list_of_connections[conn_name]))
+#         #send_email(gateway_name, list_of_connections[conn_name], goldenfile_pending_number, currentcheck_pending_number, "pending_ra")
+#       else:
+#         #print("Total pending CIDR number has not changed for connection: ", list_of_connections[conn_name])
+#         pass
 
 #--------------- Functions used to identify the missing CIDRs ---------------#
 def read_column_a(file_path, end_row):
@@ -469,7 +469,7 @@ if trgw_list == True:
   check_total_approved(gateway_name, list_of_connections, count_number_of_connections)
   # Check whether the total number of Pending CIDRs changed (compare current check and golden list count)
   # Check is executed outside of FOR loop but still inside IF statement
-  check_total_pending(gateway_name, list_of_connections, count_number_of_connections)
+  #check_total_pending(gateway_name, list_of_connections, count_number_of_connections)
 
   # List all the CIDRs that are missing
   check_missing_approved_cidrs(gateway_name, list_of_connections, count_number_of_connections)
