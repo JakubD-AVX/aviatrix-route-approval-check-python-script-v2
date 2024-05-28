@@ -2,6 +2,7 @@
 ## Important Note
 Version 1 of the script is meant to be scheduled every day. The script is checking the current results (from "today") and compares to the results generated "yesterday". 
 The script prints the differences in the command line and sends a notification e-mail.
+
 Version 2 of the script leverages "golden list" files that store the desired list of approved CIDRs. The script (v2) compares the current results to the information taken from "golden list" files.
 The script (v2) prints the differences in the command line and sends a notification e-mail.
 ## Introduction
