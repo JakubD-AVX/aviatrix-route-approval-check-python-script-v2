@@ -76,7 +76,7 @@ In case the list of CIDRs (either approved or pending) between current check and
 Once the script is executed and there are no "golden list" files the script prints a notificationand the script cannot compare the data gathered by current check against the "golden list".
 However, the script will still generate the files for the current check.
 ```
-$ python3 route_approval_check.py transit-90
+$ python3 route_approval_check_v2.py transit-90
 ------------------------------------------------------------------------------------------------------------------------
 The Transit Gateway 'transit-90' is present / exists.
 ------------------------------------------------------------------------------------------------------------------------
@@ -98,8 +98,6 @@ File transit-90_connection_tr90-tr70_pending_cidr_list_date_2024-05-28.csv has b
 File transit-90_connection_tr90-tr70_total_pending_cidr_date_2024-05-28.csv has been created
 ------------------------------------------------------------------------------------------------------------------------
 Golden List file golden_list/transit-90_connection_t90-t80_approved_cidr_list_golden_list.csv for approved CIDRs does not exist.
-------------------------------------------------------------------------------------------------------------------------
-Golden List file golden_list/transit-90_connection_t90-t80_pending_cidr_list_golden_list.csv for pending CIDRs does not exist.
 File golden_list/transit-90_connection_t90-t80_approved_cidr_list_golden_list.csv not found
 Golden file golden_list/transit-90_connection_t90-t80_approved_cidr_list_golden_list.csv does not exist
 File golden_list/transit-90_connection_fake_approved_cidr_list_golden_list.csv not found
@@ -112,7 +110,7 @@ Golden file golden_list/transit-90_connection_tr90-tr70_approved_cidr_list_golde
 ### Executing the script with "golden list" files available
 Example of the output of executing the script for the existing Transit Gateway (in case the "golden list" files exist):
 ```
-$ python3 route_approval_check.py transit-90
+$ python3 route_approval_check_v2.py transit-90
 ------------------------------------------------------------------------------------------------------------------------
 The Transit Gateway 'transit-90' is present / exists.
 ------------------------------------------------------------------------------------------------------------------------
@@ -134,9 +132,9 @@ File transit-90_connection_tr90-tr70_pending_cidr_list_date_2024-05-28.csv has b
 File transit-90_connection_tr90-tr70_total_pending_cidr_date_2024-05-28.csv has been created
 ------------------------------------------------------------------------------------------------------------------------
 Connection name:  t90-t80
-The number of approved CIDRs in the currrent-check of Route Approval feature: 0
+The number of approved CIDRs in the currrent-check of Route Approval feature: 2112
 The number of approved CIDRs in the Golden List file: 4
-Total approved CIDR number is lower than Golden-List count for connection:  t90-t80
+Total approved CIDR number is greater than Golden-List count for connection:  t90-t80
 ------------------------------------------------------------------------------------------------------------------------
 Connection name:  fake
 The number of approved CIDRs in the currrent-check of Route Approval feature: 0
@@ -153,40 +151,44 @@ The number of approved CIDRs in the currrent-check of Route Approval feature: 0
 The number of approved CIDRs in the Golden List file: 3
 Total approved CIDR number is lower than Golden-List count for connection:  tr90-tr70
 ------------------------------------------------------------------------------------------------------------------------
-Connection name:  tr90-tr70
-The number of pending CIDRs in the currrent-check of Route Approval feature: 3
-The number of pending CIDRs in the Golden List file: 0
-Total pending CIDR number is greater than Golden-List count for connection:  tr90-tr70
-------------------------------------------------------------------------------------------------------------------------
 CIDR DETAILS - Gateway: transit-90 Connection name: t90-t80
-The CIDRs present in Golden List golden_list/transit-90_connection_t90-t80_approved_cidr_list_golden_list.csv file but not Approved by Route Approval feature:
-13.13.13.102/32
-13.13.13.103/32
-5.5.5.180/32
-5.5.5.181/32
-Mismatch notification email sent successfully to <e-mail>!
+The CIDRs approved but not present in Golden List file golden_list/transit-90_connection_t90-t80_approved_cidr_list_golden_list.csv:
+13.13.13.1/32
+13.13.13.10/32
+13.13.13.100/32
+13.13.13.101/32
+13.13.13.104/32
+<..... output omitted .....>
+7.7.7.40/32
+7.7.7.41/32
+7.7.7.5/32
+7.7.7.6/32
+7.7.7.7/32
+7.7.7.8/32
+7.7.7.9/32
+Mismatch notification email sent successfully to <email@email>!
 ------------------------------------------------------------------------------------------------------------------------
 CIDR DETAILS - Gateway: transit-90 Connection name: fake
 The CIDRs present in Golden List golden_list/transit-90_connection_fake_approved_cidr_list_golden_list.csv file but not Approved by Route Approval feature:
 8.0.0.0/24
-Mismatch notification email sent successfully to <e-mail>!
+Mismatch notification email sent successfully to <email@email>!
 ------------------------------------------------------------------------------------------------------------------------
 CIDR DETAILS - Gateway: transit-90 Connection name: fake2
 The CIDRs present in Golden List golden_list/transit-90_connection_fake2_approved_cidr_list_golden_list.csv file but not Approved by Route Approval feature:
 8.0.0.0/24
-Mismatch notification email sent successfully to <e-mail>!
+Mismatch notification email sent successfully to <email@email>!
 ------------------------------------------------------------------------------------------------------------------------
 CIDR DETAILS - Gateway: transit-90 Connection name: tr90-tr70
 The CIDRs present in Golden List golden_list/transit-90_connection_tr90-tr70_approved_cidr_list_golden_list.csv file but not Approved by Route Approval feature:
 7.0.0.0/16
 7.1.0.0/16
 7.7.7.7/32
-Mismatch notification email sent successfully to <e-mail>!
+Mismatch notification email sent successfully to <email@email>!
 ```
 ### Executing the script for non-existent Transit Gateway
 Example of the output of executing the script for the non-existent Transit Gateway:
 ```
-$ python3 route_approval_check.py  transit-1234
+$ python3 route_approval_check2.py  transit-1234
 ------------------------------------------------------------------------------------------------------------------------
 The Transit Gateway 'transit-1234' is not present / does not exist.
 ------------------------------------------------------------------------------------------------------------------------
