@@ -18,11 +18,9 @@ The knowledge about whether those lists changed could be crucial if someone want
 - there are new pending CIDRs advertised from BGP Peer, 
 - some pending CIDRs have been removed.
 
-The "golden list CIDRs" are kept in **golden_list** folder. There are 2 files required per each BGP connection and these files must be created before running the script:
+The "golden list CIDRs" are kept in **golden_list** folder. There 1 file required per each BGP connection and these files must be created before running the script:
 - transit-gw-name_connection_connection-name_approved_cidr_list_golden_list.csv
   The purpose of the file is to keep a list of all approved CIDRs.
-- transit-gw-name_connection_connection-name_pending_cidr_list_list_golden_list.csv
-  The purpose of the file is to keep a list of all pending CIDRs.
 The script can be scheduled to be run every day or even multiple times a day. 
 During the script execution the following 4 files are created in **temp_files** folder for each BGP connection:
 - transit-gw-name_connection_connection-name_approved_cidr_list_date_yyyy-mm-dd.csv
