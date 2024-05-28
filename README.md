@@ -1,4 +1,4 @@
-# Route Approval Check script - version 2
+# Route Approval Check script - version 2 (Golden List)
 ## Important Note
 Version 1 of the script is meant to be scheduled every day. The script checks the current results (from "today") and compares to the results generated "yesterday". 
 The script prints the differences in the command line and sends a notification e-mail.
