@@ -94,13 +94,16 @@ Besides the files that are created by the script, the script also generates some
 The script generates the outputs that show the following pieces of information:
 - name of the Aviatrix Transit Gateway that has been checked
 - name of each connection
-- for each connection: a full list of CIDRs that are present in the "golden list" but are not approved by Route Approval Feature
-- for each connection: a full list of CIDRs that are approved by Route Approval Feature but are not present in the "golden list"
+- for each connection (in case "Connection Mode" is used): a full list of CIDRs that are present in the "golden list" but are not approved by Route Approval Feature
+- for each connection (in case "Connection Mode" is used): a full list of CIDRs that are approved by Route Approval Feature but are not present in the "golden list"
+- for each gateway (in case "Gateway Mode" is used): a full list of CIDRs that are present in the "golden list" but are not approved by Route Approval Feature
+- for each gateway (in case "Gateway Mode" is used): a full list of CIDRs that are approved by Route Approval Feature but are not present in the "golden list"
 
 In case the list of CIDRs (either approved or pending) between current check and "golden list" is not equal -> script sends a notification e-mail(s).
 ### Executing the script with no "golden list" files
 Once the script is executed and there are no "golden list" files the script prints a notificationand the script cannot compare the data gathered by current check against the "golden list".
 However, the script will still generate the files for the current check.
+For Conneciton Mode:
 ```
 $ python3 route_approval_check_v2.py transit-90
 ------------------------------------------------------------------------------------------------------------------------
@@ -132,6 +135,22 @@ File golden_list/transit-90_connection_fake2_approved_cidr_list_golden_list.csv 
 Golden file golden_list/transit-90_connection_fake2_approved_cidr_list_golden_list.csv does not exist
 File golden_list/transit-90_connection_tr90-tr70_approved_cidr_list_golden_list.csv not found
 Golden file golden_list/transit-90_connection_tr90-tr70_approved_cidr_list_golden_list.csv does not exist
+```
+OR (for Gateway Mode):
+```
+$ python3 route_approval_check_v2.py transit-80
+------------------------------------------------------------------------------------------------------------------------
+The Transit Gateway 'transit-80' is present / exists.
+------------------------------------------------------------------------------------------------------------------------
+File transit-80_Gateway-Mode_approved_cidr_list_date_2024-05-30.csv has been created
+File transit-80_Gateway-Mode_total_approved_cidr_date_2024-05-30.csv has been created
+File transit-80_Gateway-Mode_pending_cidr_list_date_2024-05-30.csv has been created
+File transit-80_Gateway-Mode_total_pending_cidr_date_2024-05-30.csv has been created
+------------------------------------------------------------------------------------------------------------------------
+Golden List file golden_list/transit-80_Gateway-Mode_approved_cidr_list_golden_list.csv for approved CIDRs does not exist.
+------------------------------------------------------------------------------------------------------------------------
+File golden_list/transit-80_Gateway-Mode_approved_cidr_list_golden_list.csv not found
+Golden file golden_list/transit-80_Gateway-Mode_approved_cidr_list_golden_list.csv does not exist
 ```
 ### Executing the script with "golden list" files available
 Example of the output of executing the script for the existing Transit Gateway (in case the "golden list" files exist):
