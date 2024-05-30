@@ -42,6 +42,7 @@ For Gateway that operates in "Gateway Mode":
   The purpose of the file is to keep a list of all approved CIDRs.
   
 The script can be scheduled to be run every day or even multiple times a day. 
+
 During the script execution the following 4 files are created in **temp_files** folder for each BGP connection (in case "Connection Mode" is used):
 - transit-gw-name_connection_connection-name_approved_cidr_list_date_yyyy-mm-dd.csv
   The purpose of the file is to keep a list of all approved CIDRs.
@@ -52,10 +53,7 @@ During the script execution the following 4 files are created in **temp_files** 
 - transit-gw-name_connection_connection-name_total_pending_cidr_date_yyyy-mm-dd.csv
   The purpose of the file is to keep the total number of approved CIDRs.
 
-OR only 1 file is created in **temp_files** folder for the gateway (in case "Gateway Mode" is used):
-
-- transit-gw-name_Gateway-Mode_total_pending_cidr_date_yyyy-mm-dd.csv
-  The purpose of the file is to keep the total number of approved CIDRs.
+Please notice that if a gateway operates in "Gateway Mode" the filenames will contain "Gateway-Mode" instead of "connection_connection-name".
 
 ![image](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v2/assets/98452952/f16b18d3-796e-4816-b7d6-284fc58fd6b6)
 
