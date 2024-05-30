@@ -11,9 +11,14 @@ What is important, it (v2) works for both "Gateway Mode" and "Connection Mode" R
 
 ## Introduction
 There is an Aviatrix feature called "BGP Route Approval" that could be enabled on Aviatrix Gateways ([Aviatrix Docs - BGP Route Approval](https://docs.aviatrix.com/documentation/latest/building-your-network/transit-bgp-route-approval.html?expand=true)).
+
 The Route Approval feature maintains two lists of CIDRs: "Approved CIDR" list and "Pending CIDR" list:
-- "Pending CIDR" list is a list of CIDRs that remote BGP Peer advertises to us but we do not have them installed/accepted on Aviatrix Gateway yet,
-- "Approved CIDR" list is a list of CIDRs that remote BGP Peer advertises to us nad we have accepted/installed on Aviatrix Gateway.
+- "Pending CIDR" is a list of CIDRs that remote BGP Peer advertises to us but we do not have them installed/accepted on Aviatrix Gateway yet,
+- "Approved CIDR" is a list of CIDRs that remote BGP Peer advertises to us nad we have accepted/installed on Aviatrix Gateway.
+
+The Route Approval feature could operate in two Modes (it must be set up per Gateway):
+- "Gateway Mode", in this mode "Approved CIDR" and "Pending CIDR" lists are maintaned for all connections established by Gateway,
+- "Connection Mode", in this mode "Approved CIDR" and "Pending CIDR" lists are maintened separately for each connection established by Gateway.
 
 The purpose of the script is to validate whether the "Approved CIDR" list and the "Pending CIDR" list changed between current check and "golden list of CIDRs". 
 The knowledge about whether those lists changed could be crucial if someone wants to monitor whether: 
@@ -22,12 +27,18 @@ The knowledge about whether those lists changed could be crucial if someone want
 - there are new pending CIDRs advertised from BGP Peer, 
 - some pending CIDRs have been removed.
 
-The "golden list CIDRs" are kept in **golden_list** folder. There 1 file required per each BGP connection and this file must be created before running the script:
+The "golden list CIDRs" are kept in **golden_list** folder. 
+For Gateway that operates in "Connection Mode":
+- there 1 file required per each BGP connection and this file must be created before running the script:
 - transit-gw-name_connection_connection-name_approved_cidr_list_golden_list.csv
+  The purpose of the file is to keep a list of all approved CIDRs.
+For Gateway that operates in "Gateway Mode":
+- there 1 file required per Gateway and this file must be created before running the script:
+- transit-gw-name_Gateway-Mode_approved_cidr_list_golden_list.csv
   The purpose of the file is to keep a list of all approved CIDRs.
   
 The script can be scheduled to be run every day or even multiple times a day. 
-During the script execution the following 4 files are created in **temp_files** folder for each BGP connection:
+During the script execution the following 4 files are created in **temp_files** folder for each BGP connection (in case "Connection Mode" is used):
 - transit-gw-name_connection_connection-name_approved_cidr_list_date_yyyy-mm-dd.csv
   The purpose of the file is to keep a list of all approved CIDRs.
 - transit-gw-name_connection_connection-name_pending_cidr_list_date_yyyy-mm-dd.csv
@@ -35,6 +46,9 @@ During the script execution the following 4 files are created in **temp_files** 
 - transit-gw-name_connection_connection-name_total_approved_cidr_date_yyyy-mm-dd.csv
   The purpose of the file is to keep the total number of approved CIDRs.
 - transit-gw-name_connection_connection-name_total_pending_cidr_date_yyyy-mm-dd.csv
+  The purpose of the file is to keep the total number of approved CIDRs.
+OR only 1 file is created in **temp_files** folder for the gateway (in case "Gateway Mode" is used):
+- transit-gw-name_Gateway-Mode_total_pending_cidr_date_yyyy-mm-dd.csv
   The purpose of the file is to keep the total number of approved CIDRs.
 
 ![image](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v2/assets/98452952/f16b18d3-796e-4816-b7d6-284fc58fd6b6)
