@@ -37,7 +37,7 @@ During the script execution the following 4 files are created in **temp_files** 
 - transit-gw-name_connection_connection-name_total_pending_cidr_date_yyyy-mm-dd.csv
   The purpose of the file is to keep the total number of approved CIDRs.
 
-![image](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v2/assets/98452952/0b598b64-6b4d-4d64-9dbb-aba55675875e)
+![image](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v2/assets/98452952/d814cf5d-30b8-488a-bde8-5534c0596d54)
 
 ## Requirements
 Please keep in mind that script only works for **Aviatrix Transit Gateways** that have "BGP Route Approval" feature enabled in **Connection-Mode**.
