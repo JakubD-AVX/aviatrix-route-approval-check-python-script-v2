@@ -8,7 +8,7 @@ Version 2 of the script leverages "golden list" files that store the desired lis
 The script (v2) prints the differences in the command line and sends a notification e-mail.
 
 There is also a Version 3 of the script (extension of version 2) that uses Golden List and works for both "Gateway Mode" and "Connection Mode" Route Approval feature.
-[Link to version 3] (https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v3)
+[Link to version 3](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v3/)
 
 ## Introduction
 There is an Aviatrix feature called "BGP Route Approval" that could be enabled on Aviatrix Gateways ([Aviatrix Docs - BGP Route Approval](https://docs.aviatrix.com/documentation/latest/building-your-network/transit-bgp-route-approval.html?expand=true)).
