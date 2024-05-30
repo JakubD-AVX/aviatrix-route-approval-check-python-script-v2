@@ -154,6 +154,7 @@ Golden file golden_list/transit-80_Gateway-Mode_approved_cidr_list_golden_list.c
 ```
 ### Executing the script with "golden list" files available
 Example of the output of executing the script for the existing Transit Gateway (in case the "golden list" files exist):
+For (Connection Mode):
 ```
 $ python3 route_approval_check_v2.py transit-90
 ------------------------------------------------------------------------------------------------------------------------
@@ -230,6 +231,27 @@ The CIDRs present in Golden List golden_list/transit-90_connection_tr90-tr70_app
 7.7.7.7/32
 Mismatch notification email sent successfully to <email@email>!
 ```
+OR (for Gateway Mode):
+```
+$ python3 route_approval_check_v2.py transit-80
+------------------------------------------------------------------------------------------------------------------------
+The Transit Gateway 'transit-80' is present / exists.
+------------------------------------------------------------------------------------------------------------------------
+File transit-80_Gateway-Mode_approved_cidr_list_date_2024-05-30.csv has been created
+File transit-80_Gateway-Mode_total_approved_cidr_date_2024-05-30.csv has been created
+File transit-80_Gateway-Mode_pending_cidr_list_date_2024-05-30.csv has been created
+File transit-80_Gateway-Mode_total_pending_cidr_date_2024-05-30.csv has been created
+------------------------------------------------------------------------------------------------------------------------
+CIDR DETAILS - Gateway: transit-80 in Gateway Mode.
+The CIDRs present in Golden List golden_list/transit-80_Gateway-Mode_approved_cidr_list_golden_list.csv file but not Approved by Route Approval feature:
+1.2.3.4/32
+Mismatch notification email sent successfully to <email@email>!
+------------------------------------------------------------------------------------------------------------------------
+CIDR DETAILS - Gateway: transit-80 in Gateway Mode.
+The CIDRs approved but not present in Golden List file golden_list/transit-80_Gateway-Mode_approved_cidr_list_golden_list.csv:
+3.3.3.3/32
+Mismatch notification email sent successfully to <email@email>!
+```
 ### Executing the script for non-existent Transit Gateway
 Example of the output of executing the script for the non-existent Transit Gateway:
 ```
@@ -240,7 +262,8 @@ The Transit Gateway 'transit-1234' is not present / does not exist.
 ```
 ### E-mail notifications
 In case the list of approved CIDRs between current check and "golden list" is not equal -> script sends a notification e-mail(s).
-Example of the e-mail notification for approved CIDRs (e-mail title: Aviatrix - Route Approval - Approved CIDRs Mismatch detected):
+Example of the e-mail notification for approved CIDRs (e-mail title: Aviatrix - Route Approval - Approved CIDRs Mismatch detected).
+For Connection Mode:
 ```
 Total number of approved CIDRs changed for gateway: transit-90 and connection: tr90-tr70.
 
@@ -250,5 +273,15 @@ The following CIDRs are approved by Route Approval feature but not present in Go
 7.0.0.0/16
 7.1.0.0/16
 7.7.7.7/32
+
+```
+For Gateway Mode:
+```
+Total number of approved CIDRs changed for gateway: transit-80 (Gateway Mode Route Approval).
+
+
+
+The following CIDRs are present in Golden List but not Approved by Route Approval feature:
+1.2.3.4/32
 
 ```
