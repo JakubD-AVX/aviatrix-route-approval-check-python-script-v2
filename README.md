@@ -3,12 +3,11 @@
 Version 1 of the script is meant to be scheduled every day. The script checks the current results (from "today") and compares to the results generated "yesterday". 
 The script prints the differences in the command line and sends a notification e-mail.
 [Link to version 1](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script/)
+The limitation of version 1 is that it works only with "Connection Mode" Route Approval feature. 
 
 Version 2 of the script leverages "golden list" files that store the desired list of approved CIDRs. The script (v2) compares the current results to the information taken from "golden list" files.
 The script (v2) prints the differences in the command line and sends a notification e-mail.
-
-There is also a Version 3 of the script (extension of version 2) that uses Golden List and works for both "Gateway Mode" and "Connection Mode" Route Approval feature.
-[Link to version 3](https://github.com/JakubD-AVX/aviatrix-route-approval-check-python-script-v3/)
+What is important, it (v2) works for both "Gateway Mode" and "Connection Mode" Route Approval feature.
 
 ## Introduction
 There is an Aviatrix feature called "BGP Route Approval" that could be enabled on Aviatrix Gateways ([Aviatrix Docs - BGP Route Approval](https://docs.aviatrix.com/documentation/latest/building-your-network/transit-bgp-route-approval.html?expand=true)).
