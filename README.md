@@ -29,12 +29,12 @@ The knowledge about whether those lists changed could be crucial if someone want
 
 The "golden list CIDRs" are kept in **golden_list** folder. 
 For Gateway that operates in "Connection Mode":
-- there 1 file required per each BGP connection and this file must be created before running the script:
-- transit-gw-name_connection_connection-name_approved_cidr_list_golden_list.csv
+- there is 1 file required per each BGP connection and this file must be created before running the script:
+  transit-gw-name_connection_connection-name_approved_cidr_list_golden_list.csv
   The purpose of the file is to keep a list of all approved CIDRs.
 For Gateway that operates in "Gateway Mode":
-- there 1 file required per Gateway and this file must be created before running the script:
-- transit-gw-name_Gateway-Mode_approved_cidr_list_golden_list.csv
+- there is 1 file required per Gateway and this file must be created before running the script:
+  transit-gw-name_Gateway-Mode_approved_cidr_list_golden_list.csv
   The purpose of the file is to keep a list of all approved CIDRs.
   
 The script can be scheduled to be run every day or even multiple times a day. 
