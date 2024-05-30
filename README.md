@@ -51,7 +51,9 @@ During the script execution the following 4 files are created in **temp_files** 
   The purpose of the file is to keep the total number of approved CIDRs.
 - transit-gw-name_connection_connection-name_total_pending_cidr_date_yyyy-mm-dd.csv
   The purpose of the file is to keep the total number of approved CIDRs.
+
 OR only 1 file is created in **temp_files** folder for the gateway (in case "Gateway Mode" is used):
+
 - transit-gw-name_Gateway-Mode_total_pending_cidr_date_yyyy-mm-dd.csv
   The purpose of the file is to keep the total number of approved CIDRs.
 
